@@ -1,0 +1,20 @@
+:root {
+  --main-color: rgb(104, 117, 217);
+  --main-color-hover: rgb(104, 117, 217, 0.2);
+  --track-color: #ddd;
+}
+
+.customSlider {
+  max-width: 300px;
+  margin: auto;
+}
+
+.customSlider-track {
+  top: 8px;
+  height: 4px;
+  background: var(--track-color);
+}
+
+.customSlider-track.customSlider-track-0 {
+  background: var(--main-color);
+}
