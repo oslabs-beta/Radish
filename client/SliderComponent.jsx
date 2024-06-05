@@ -1,7 +1,7 @@
 import ReactSlider from 'react-slider';
 import React from 'react';
 
-const SliderComponent = ({ label, value, setValue }) => (
+const SliderComponent = ({ label, value, onChange }) => (
   <div className="sliderSection">
     <div className="sliderLabel">{label}</div>
     <ReactSlider
@@ -14,7 +14,7 @@ const SliderComponent = ({ label, value, setValue }) => (
       max={10}
       defaultValue={0}
       value={value}
-      onChange={setValue}
+      onChange={onChange}
       renderMark={props => {
         if (props.key < value) {
           props.className = 'customSlider-mark customSlider-mark-before';
