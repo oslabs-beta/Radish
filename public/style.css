@@ -2,19 +2,63 @@
   --main-color: rgb(104, 117, 217);
   --main-color-hover: rgb(104, 117, 217, 0.2);
   --track-color: #ddd;
+  --mark-color: #aaaaaa;
 }
-
+.sliderSection {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.sliderLabel {
+  width: 150px;
+}
 .customSlider {
-  max-width: 300px;
-  margin: auto;
-}
+  width: 200px;
+  /* margin: auto; */
+  /* flex-grow: 1; */
 
+  margin: 0 30px;
+}
+.sliderValue {
+  width: 50px;
+}
 .customSlider-track {
+  /* Top value to align your track to the center of your thumb */
   top: 8px;
-  height: 4px;
+  /* thickness of the track */
+  height: 6px;
+  /* default color of your track */
   background: var(--track-color);
 }
 
 .customSlider-track.customSlider-track-0 {
+  /* color of the track before the thumb */
   background: var(--main-color);
+}
+.customSlider-thumb {
+  cursor: pointer;
+  background: var(--main-color);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  outline: none;
+}
+
+.customSlider-thumb:hover {
+  box-shadow: 0 0 0 3px var(--main-color-hover);
+  background-color: rgb(72, 86, 190);
+}
+.customSlider-mark {
+  cursor: pointer;
+  top: 7px;
+  width: 1.5px;
+  height: 8px;
+  background-color: var(--mark-color);
+}
+.customSlider-mark.customSlider-mark-before {
+  background-color: var(--main-color);
+}
+
+.customSlider-mark.customSlider-mark-active {
+  display: none;
 }
