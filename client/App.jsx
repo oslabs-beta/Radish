@@ -1,13 +1,9 @@
 import React from 'react';
-import Slider from './Slider';
-import '../public/style.css';
+import MainPage from './Pages/MainPage';
 
 function App() {
   return (
-    <div>
-      <h1>radish is running</h1>
-      <Slider />
-    </div>
+      <MainPage />
   );
 }
 

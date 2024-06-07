@@ -1,7 +1,7 @@
 import React from 'react';
 import App from './App.jsx';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './Redux/store.js';
 import { createRoot } from 'react-dom/client';
 
 const container = document.getElementById('app');
