@@ -5,7 +5,7 @@ import {
   setSentinelsValue,
   setShardsValue,
   setReplicasValue,
-} from './actions/actions';
+} from '../actions/actions';
 
 const Slider = () => {
   // const [sentinelsValue, setSentinelsValue] = useState(0);
