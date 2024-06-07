@@ -1,0 +1,31 @@
+/* style.css */
+body {
+  background-color: #e0f3ff; /* Bright light blue */
+}
+
+.container {
+  text-align: center; /* Center the content horizontally */
+}
+
+.text-box {
+  display: inline-block; /* Change from block to inline-block */
+  width: 10%; /* Adjusted width for text boxes */
+  padding: 60px; /* Adjust the padding as needed */
+  background-color: lightblue;
+  color: orange;
+  border: 2px solid black; /* Black border */
+  border-radius: 20px;
+  text-align: center;
+  font-size: 18px; /* Adjust the font size as needed */
+}
+
+.visualization {
+  display: inline-block;
+  width: 30%;
+  padding: 40px;
+  color: black; /* Text color */
+  background-color: lightcoral; /* Light red background color */
+  border: 2px solid black; /* Black border */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Adjust font size as needed */
+}
