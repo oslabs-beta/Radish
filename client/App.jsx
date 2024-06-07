@@ -1,6 +1,7 @@
 import React from "react";
 import Slider from "./src/Slider";
 import Visualization from "./src/Visualization";
+import Visual from "./src/Visual";
 import "../public/style.css";
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
     <div>
       <h1>radish is running</h1>
       <Slider />
-      <Visualization />
+      <Visual />
     </div>
   );
 }
