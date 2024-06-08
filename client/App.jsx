@@ -1,7 +1,6 @@
 import React from "react";
-import Slider from "./src/Slider";
-import Visualization from "./src/Visualization";
-import Visual from "./src/Visual";
+import Slider from "./components/Slider";
+import Visual from "./components/Visual";
 import "../public/style.css";
 
 function App() {
