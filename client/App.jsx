@@ -1,9 +1,16 @@
-import React from 'react';
-import MainPage from './Pages/MainPage';
+import React from "react";
+import Slider from "./src/Slider";
+import Visualization from "./src/Visualization";
+import Visual from "./src/Visual";
+import "../public/style.css";
 
 function App() {
   return (
-      <MainPage />
+    <div>
+      <h1>radish is running</h1>
+      <Slider />
+      <Visual />
+    </div>
   );
 }
 
