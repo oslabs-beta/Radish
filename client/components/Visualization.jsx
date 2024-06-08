@@ -8,9 +8,9 @@ import replica_logo from "../asset/replica_logo.svg";
 
 const Visualization = () => {
   const svgRef = useRef();
-  const sentinel = useSelector((state) => state.sentinelsValue);
-  const shard = useSelector((state) => state.shardsValue);
-  const replica = useSelector((state) => state.replicasValue);
+  const sentinel = useSelector((state) => state.slider.sentinelsValue);
+  const shard = useSelector((state) => state.slider.shardsValue);
+  const replica = useSelector((state) => state.slider.replicasValue);
 
   useEffect(() => {
     const width = 800;
