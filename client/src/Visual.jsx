@@ -90,7 +90,7 @@ const Visual = () => {
       );
 
     function dragstarted(event, d) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
+      //if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
     }
@@ -98,36 +98,38 @@ const Visual = () => {
     function dragged(event, d) {
       d.fx = event.x;
       d.fy = event.y;
+      d.x = event.x;
+      d.y = event.y;
+      d3.select(this).attr("x", event.x).attr("y", event.y);
     }
 
     function dragended(event, d) {
-      if (!event.active) simulation.alphaTarget(0);
+      //if (!event.active) simulation.alphaTarget(0);
       d.fx = null;
       d.fy = null;
     }
 
-    // Create a force simulation
-    const simulation = d3
-      .forceSimulation(allData)
-      .force(
-        "collide",
-        d3
-          .forceCollide()
-          .radius((d) => (d.type === "shard" ? shardSize : replicaSize / 2))
-      )
-      .force("charge", d3.forceManyBody().strength(-200))
-      .force(
-        "link",
-        d3
-          .forceLink()
-          .id((d) => d.id)
-          .links(createLinks())
-      )
-      .force("center", d3.forceCenter(width / 2, height / 2));
+    // const simulation = d3
+    //   .forceSimulation(allData)
+    //   .force(
+    //     "collide",
+    //     d3
+    //       .forceCollide()
+    //       .radius((d) => (d.type === "shard" ? shardSize : replicaSize / 2))
+    //   )
+    //   .force("charge", d3.forceManyBody().strength(-200))
+    //   .force(
+    //     "link",
+    //     d3
+    //       .forceLink()
+    //       .id((d) => d.id)
+    //       .links(createLinks())
+    //   )
+    //   .force("center", d3.forceCenter(width / 2, height / 2));
 
-    simulation.on("tick", () => {
-      images.attr("x", (d) => d.x).attr("y", (d) => d.y);
-    });
+    // simulation.on("tick", () => {
+    //   images.attr("x", (d) => d.x).attr("y", (d) => d.y);
+    // });
 
     function createLinks() {
       const linksArray = [];
