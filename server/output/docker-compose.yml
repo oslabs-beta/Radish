@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+  app:
+    image: client-app-js:latest
+    container_name: client-app-js
+    ports:
+      - '80:80'
+    environment:
+      - REDIS_HOST=Redis-0-0
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=password123
+      - USE_REDIS=true
+    command:
+      - sh
+      - '-c'
+      - sleep 10 && npm start
+  redis-0-0:
+    image: redis:latest
+    container_name: redis-0-0
+    volumes:
+      - ./redis-0-0.conf:/usr/local/etc/redis/redis.conf
+      - redis-0-0-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - '6379:6379'
+  redis-0-1:
+    image: redis:latest
+    container_name: redis-0-1
+    volumes:
+      - ./redis-0-1.conf:/usr/local/etc/redis/redis.conf
+      - redis-0-1-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - '6380:6379'
+  redis-1-0:
+    image: redis:latest
+    container_name: redis-1-0
+    volumes:
+      - ./redis-1-0.conf:/usr/local/etc/redis/redis.conf
+      - redis-1-0-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - '6381:6381'
+  redis-1-1:
+    image: redis:latest
+    container_name: redis-1-1
+    volumes:
+      - ./redis-1-1.conf:/usr/local/etc/redis/redis.conf
+      - redis-1-1-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - '6382:6381'
+volumes:
+  redis-0-0-data: {}
+  redis-0-1-data: {}
+  redis-1-0-data: {}
+  redis-1-1-data: {}
