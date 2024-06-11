@@ -8,10 +8,14 @@ function App() {
   return (
     <div>
       <Sidebar />
-      <h1>radish is running</h1>
-      <Slider />
-      <Visual />
-      <RedisForm />
+      <div className="main-container">
+        <h1 className="title">radish is running</h1>
+        <Slider />
+        <Visual />
+      </div>
+      <div className='form-container'>
+        <RedisForm />
+      </div>
     </div>
   );
 }

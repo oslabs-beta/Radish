@@ -26,7 +26,7 @@ function Sidebar() {
           <li>
             <MdOutlineMonitorHeart className="icon" />
             <span className="label">
-              Performance <br /> monitor
+              Performance <br /> Monitor
             </span>
           </li>
           <li>
