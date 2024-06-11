@@ -23,6 +23,10 @@ const redisFormSlice = createSlice({
 
   },
   reducers:{
+    
+    setRedisState:(state,action)=>{
+      return action.payload;
+    },
     setPort:(state,action)=>{
       state.name = action.payload;
     },
