@@ -7,9 +7,11 @@ function App() {
   return (
     <div>
       <Sidebar />
-      <h1>radish is running</h1>
-      <Slider />
-      <Visual />
+      <div className="main-container">
+        <h1 className="title">radish is running</h1>
+        <Slider />
+        <Visual />
+      </div>
     </div>
   );
 }
