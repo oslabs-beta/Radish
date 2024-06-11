@@ -1,7 +1,11 @@
 import SliderComponent from './SliderComponent';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSentinelsValue, setShardsValue, setReplicasValue } from '../Redux/slices/sliderSlice';
+import {
+  setSentinelsValue,
+  setShardsValue,
+  setReplicasValue,
+} from '../Redux/slices/sliderSlice';
 
 const Slider = () => {
   // const [sentinelsValue, setSentinelsValue] = useState(0);
@@ -19,11 +23,11 @@ const Slider = () => {
 
   return (
     <div>
-      <SliderComponent
+      {/* <SliderComponent
         label="Number of sentinels"
         value={sentinelsValue}
         onChange={value => dispatch(setSentinelsValue(value))}
-      ></SliderComponent>
+      ></SliderComponent> */}
 
       <SliderComponent
         label="Number of shards"
