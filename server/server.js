@@ -133,6 +133,12 @@ app.post('/createFiles', (req, res) => {
     }
   });
 
+app.post('/test/createFiles', (req, res) => {
+  console.log('Received POST request to /test/createFiles');
+  console.log('Request body:', req.body);
+  // res.status(200).send('Received POST request to /test/createFiles');
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

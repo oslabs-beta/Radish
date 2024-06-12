@@ -155,3 +155,47 @@
 .sidebar.open ul li .label {
   opacity: 1;
 }
+
+
+/* redis form */
+
+#redis-form {
+  margin-left : 80px;
+  background-color: var(--bg);
+  padding: 20px;
+}
+
+#redis-form .redis-form-input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 94%;
+}
+
+#redis-form input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+}
+
+#redis-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  color: black;
+}
+
+#redis-form select {
+  width: 94%;
+  padding: 10px;
+  margin: 10px 0;
+  color: black;
+}
+
+#redis-conf-header {
+text-align: center;
+}
+
+#redis-form option {
+  color: black;
+}
+
