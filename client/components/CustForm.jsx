@@ -1,77 +1,88 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setRedisState } from "../Redux/slices/redisFormSlice";
+import { setShardsValue, setReplicasValue, setSentinelsValue } from "../Redux/slices/sliderSlice";
 
 const RedisForm = () => {
   const dispatch = useDispatch();
-  const redisState = useSelector(state => state.redis);
-  console.log("redisState", redisState);
+  const sliderState = useSelector(state => state.slider);
+  // console.log("redisState", redisState);
 
 
 
   return (
-    <div id="redis-form">
-      <h1>redis.conf customization</h1>
+    <form id="redis-form" action="/test/createFiles" method="POST">
+      <h1 id='redis-conf-header'>redis.conf customization</h1>
       <h2>Administration</h2>
       
       <div id="admin">
+
         <div className="redis-form-input">
-          <label for="port" >Port</label>
-          <input id="port" type="number" />
+          <label htmlFor="shards">number of shards</label>
+          <input type="number" name="shards" id="shards" value={sliderState.shardsValue} onChange={e=>{dispatch(setShardsValue(e.target.value))}} />
+          <label htmlFor="replicas">number of replicas</label>
+          <input type="number" name="replicas" id="replicas" value={sliderState.replicasValue} onChange={e=>{dispatch(setReplicasValue(e.target.value))}} />
         </div>
 
         <div className="redis-form-input">
-          <input id="deamonize" type="checkbox" checked />
-          <label for="daemonize">daemonize?</label>
         </div>
 
         <div className="redis-form-input">
-          <label for="masterauth">require masterauth password?</label>
-          <input id="masterauth" type="text" />
+          <label htmlFor="port" >Port</label>
+          <input name="port" id="port" type="number" />
+        </div>
+
+        <div className="redis-form-input">
+          <input name="daemonize" id="deamonize" type="checkbox" value={true} />
+          <label htmlFor="daemonize">daemonize?</label>
+        </div>
+
+        <div className="redis-form-input">
+          <label htmlFor="masterauth">require masterauth password?</label>
+          <input name="masterauth" id="masterauth" type="text" />
         </div>
        
         <div className="redis-form-input">
-          <label for="masteruser">require masteruser credentials?</label>
-          <input id="masteruser" type="text" />
+          <label htmlFor="masteruser">require masteruser credentials?</label>
+          <input name="masteruser" id="masteruser" type="text" />
         </div>
       </div>
 
       <div className="redis-form-input">
-        <label for="loglevel">log setting</label>
-        <select id="loglevel" >
-          <option value="notice">notice</option>
+        <label htmlFor="loglevel">log setting</label>
+        <select name="loglevel" id="loglevel" >
+          <option selected value="notice">notice</option>
           <option value="verbose">verbose</option>
           <option value="debug">debug</option>
         </select>
       </div>
 
       <div className="redis-form-input">
-        <label for="timeout">timeout</label>
-        <input id="timeout" type="number" value={redisState.timeout}/>
+        <label htmlFor="timeout">timeout</label>
+        <input name="timeout" id="timeout" type="number" />
       </div>
 
       <h2>Persistance Management</h2>
 
       <div id="persistance">
         <div className="redis-form-input">
-          <label for="saveSeconds">minimum time between RDB snapshots</label>
-          <input id="saveSeconds" type="number" value={redisState.saveSeconds}/>
+          <label htmlFor="saveSeconds">minimum time between RDB snapshots</label>
+          <input name="saveSeconds" id="saveSeconds" type="number" />
         </div>
 
         <div className="redis-form-input">
-          <label for="saveChanges">number of changes made within time interval to trigger a snapshot</label>
-          <input id="saveChanges" type="number" value={redisState.saveChanges}/>
+          <label htmlFor="saveChanges">number of changes made within time interval to trigger a snapshot</label>
+          <input name="saveChanges" id="saveChanges" type="number" />
         </div>
 
         <div className="redis-form-input">
-          <input id="appendonly" type="checkbox" checked value={redisState.appendonly}/>
+          <input name="appendonly" id="appendonly" type="checkbox" value={true}/>
           <label for="appendonly">enable appendonly (AOF) mode</label>
         </div>
 
         <div className="redis-form-input">
-          <label for="appendfsync">choose an AOF sync method</label>
-          <select id="appendfsync" value={redisState.appendfsync}>
-            <option value="everysec">everysec</option>
+          <label htmlFor="appendfsync">choose an AOF sync method</label>
+          <select name="appendfsync" id="appendfsync" >
+            <option selected value="everysec">everysec</option>
             <option value="no">no</option>
             <option value="always">always</option>
           </select>
@@ -83,29 +94,29 @@ const RedisForm = () => {
       <div id="memory">
 
         <div className="redis-form-input">
-          <input id="rdbcompression" type="checkbox" checked value={redisState.rdbcompression}/>
-          <label for="rdbcompression">rdb compression</label>
+          <input name="rdbcompression" id="rdbcompression" type="checkbox" value={true}/>
+          <label htmlFor="rdbcompression">rdb compression</label>
         </div>
 
         <div className="redis-form-input">
-          <input id="rdbchecksum" type="checkbox" value={redisState.rdbchecksum}/>
-          <label for="rdbchecksum">redchecksum</label>
+          <input name="rdbchecksum" id="rdbchecksum" type="checkbox" value={true}/>
+          <label htmlFor="rdbchecksum">redchecksum</label>
         </div>
 
         <div className="redis-form-input">
-          <input id="replicaServeStaleData" type="checkbox" value={redisState.replicaServeStaleData}/>
-          <label for="replicaServeStaleData">serve stale data?</label>
+          <input name="replicaServeStaleData" id="replicaServeStaleData" type="checkbox" value={true}/>
+          <label htmlFor="replicaServeStaleData">serve stale data?</label>
         </div>
 
         <div className="redis-form-input">
-          <label for="maxmemory"></label>
-          <input id="maxmemory" type="number" value={redisState.maxmemory}/>
+          <label htmlFor="maxmemory"></label>
+          <input name="maxmemory" id="maxmemory" type="number" />
         </div>
 
         <div className="redis-form-input"> 
-          <label for="maxmemoryPolicy"></label>
-          <select id="maxmemoryPolicy" value={redisState.maxmemoryPolicy}>
-            <option value="noeviction">noeviction</option>
+          <label htmlFor="maxmemoryPolicy"></label>
+          <select name="maxmemoryPolicy" id="maxmemoryPolicy" >
+            <option selected value="noeviction">noeviction</option>
             <option value="allkeys-lru">allkeys-lru</option>
             <option value="volatile-lru">volatile-lru</option>
             <option value="allkeys-lfu">allkey=lfu</option>
@@ -115,7 +126,9 @@ const RedisForm = () => {
           </select>
         </div>
       </div>
-    </div>
+      <button type="submit">submit config</button>
+      
+    </form>
   )
 };
 

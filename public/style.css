@@ -156,9 +156,12 @@
   opacity: 1;
 }
 
+
+/* redis form */
+
 #redis-form {
   margin-left : 80px;
-  background-color: rgb(199, 197, 197);
+  background-color: var(--bg);
   padding: 20px;
 }
 
@@ -178,12 +181,21 @@
   width: 100%;
   padding: 10px;
   margin: 10px 0;
+  color: black;
 }
 
 #redis-form select {
   width: 94%;
   padding: 10px;
   margin: 10px 0;
+  color: black;
 }
 
+#redis-conf-header {
+text-align: center;
+}
+
+#redis-form option {
+  color: black;
+}
 
