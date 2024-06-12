@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "nodemon server/server.js",
-    "dev": "webpack serve",
+    "dev": "webpack serve & nodemon server/server.js",
     "backend": "nodemon server/server.js"
   },
   "author": "",
