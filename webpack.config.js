@@ -13,10 +13,12 @@ module.exports = {
     },
     port: 3000,
     open: true,
-    proxy: [{
-      context: ['/test'],
-      target: 'http://localhost:80',
-    }]
+    proxy: [
+      {
+        context: ["/test"],
+        target: "http://localhost:80",
+      },
+    ],
   },
   resolve: {
     modules: [path.resolve(__dirname, "node_modules")],
@@ -36,7 +38,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ["style-loader", "css-loader", "postcss-loader"],
       },
       {
         test: /\.svg$/,
