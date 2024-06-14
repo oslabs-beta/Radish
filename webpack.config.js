@@ -14,8 +14,8 @@ module.exports = {
     port: 3000,
     open: true,
     proxy: [{
-      context: ['/test'],
-      target: 'http://localhost:80',
+      context: ['/api'],
+      target: 'http://localhost:8080',
     }]
   },
   resolve: {

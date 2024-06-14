@@ -8,12 +8,14 @@ services:
     environment:
       - REDIS_HOST=Redis-0-0
       - REDIS_PORT=6379
-      - REDIS_PASSWORD=password123
+      - REDIS_PASSWORD=password
       - USE_REDIS=true
     command:
       - sh
       - '-c'
       - sleep 10 && npm start
+    networks:
+      - redis-cluster
   redis-0-0:
     image: redis:latest
     container_name: redis-0-0
@@ -23,6 +25,9 @@ services:
     command: redis-server /usr/local/etc/redis/redis.conf
     ports:
       - '6379:6379'
+    networks:
+      redis-cluster:
+        ipv4_address: 172.20.0.10
   redis-0-1:
     image: redis:latest
     container_name: redis-0-1
@@ -32,6 +37,21 @@ services:
     command: redis-server /usr/local/etc/redis/redis.conf
     ports:
       - '6380:6379'
+    networks:
+      redis-cluster:
+        ipv4_address: 172.20.0.11
+  redis-0-2:
+    image: redis:latest
+    container_name: redis-0-2
+    volumes:
+      - ./redis-0-2.conf:/usr/local/etc/redis/redis.conf
+      - redis-0-2-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - '6381:6379'
+    networks:
+      redis-cluster:
+        ipv4_address: 172.20.0.12
   redis-1-0:
     image: redis:latest
     container_name: redis-1-0
@@ -40,7 +60,10 @@ services:
       - redis-1-0-data:/data
     command: redis-server /usr/local/etc/redis/redis.conf
     ports:
-      - '6381:6381'
+      - '6382:6382'
+    networks:
+      redis-cluster:
+        ipv4_address: 172.20.0.20
   redis-1-1:
     image: redis:latest
     container_name: redis-1-1
@@ -49,9 +72,32 @@ services:
       - redis-1-1-data:/data
     command: redis-server /usr/local/etc/redis/redis.conf
     ports:
-      - '6382:6381'
+      - '6383:6382'
+    networks:
+      redis-cluster:
+        ipv4_address: 172.20.0.21
+  redis-1-2:
+    image: redis:latest
+    container_name: redis-1-2
+    volumes:
+      - ./redis-1-2.conf:/usr/local/etc/redis/redis.conf
+      - redis-1-2-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - '6384:6382'
+    networks:
+      redis-cluster:
+        ipv4_address: 172.20.0.22
 volumes:
   redis-0-0-data: {}
   redis-0-1-data: {}
+  redis-0-2-data: {}
   redis-1-0-data: {}
   redis-1-1-data: {}
+  redis-1-2-data: {}
+networks:
+  redis-cluster:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
