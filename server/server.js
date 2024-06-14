@@ -4,13 +4,17 @@ const fs = require('fs');
 const path = require('path'); 
 const { createClient } = require('redis');
 const yaml = require('js-yaml');
+
 const aws = require('aws-sdk');
+
 
 const app = express();
 const port = 80;
 
+
 // Load .env variables
 require('dotenv').config();
+
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,6 +22,7 @@ app.use(bodyParser.json());
 
 console.log('Connect to Redis?', process.env.USE_REDIS);
 console.log('Redis Password:', process.env.REDIS_PASSWORD);
+
 
 // Set AWS credentials and region from environment variables. 
 //For this to work properly, you will need an AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in a .env file located in the project root.
@@ -27,6 +32,7 @@ aws.config.update({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || 'defaultSecretKey',
     region: 'us-east-1' // Default region for Pricing API
 });
+
 
 // Connect to redis cluster when the docker-compose file tells us to do so
 if (process.env.USE_REDIS === 'true') {
@@ -144,6 +150,7 @@ app.post('/createFiles', (req, res) => {
       }
     }
   });
+
 
 // Post route to handle the fetching of EC2 pricing given inputs from the front end
 app.post('/getPricing', async (req, res) => {
@@ -272,6 +279,7 @@ app.post('/getPricing', async (req, res) => {
         res.status(500).send('An error occurred while fetching EC2 pricing');
     }
  }); 
+
 
 app.post('/test/createFiles', (req, res) => {
   console.log('Received POST request to /test/createFiles');
