@@ -1,49 +1,38 @@
-import React, { useState } from 'react';
-import { FaDocker } from 'react-icons/fa';
-import { GiDiamondTrophy } from 'react-icons/gi';
-import { MdOutlineMonitorHeart } from 'react-icons/md';
-import { GrDocumentConfig } from 'react-icons/gr';
-import { IoIosMenu } from 'react-icons/io';
+import React, { useState } from "react";
+import { FaDocker } from "react-icons/fa";
+import { GiDiamondTrophy } from "react-icons/gi";
+import { MdOutlineMonitorHeart } from "react-icons/md";
+import { GrDocumentConfig } from "react-icons/gr";
+import { IoIosMenu } from "react-icons/io";
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
-      <button className="toggle-button" onClick={toggleSidebar}>
-        <IoIosMenu />
-      </button>
-      <div className="sidebar-content">
-        <ul>
+    <nav className="bg-gray-800 text-white w-64 min-h-screen">
+      <div className="px-4 py-6">
+        <ul className="space-y-4">
           <li>
-            <GrDocumentConfig className="icon" />
-            <span className="label">Configuration</span>
+            <a href="#" className="text-gray-300 hover:text-white">
+              Configuration
+            </a>
           </li>
           <li>
-            <MdOutlineMonitorHeart className="icon" />
-            <span className="label">
-              Performance <br /> Monitor
-            </span>
+            <a href="#" className="text-gray-300 hover:text-white">
+              Pricing
+            </a>
           </li>
           <li>
-            <GiDiamondTrophy className="icon" />
-            <span className="label">Benchmark</span>
+            <a href="#" className="text-gray-300 hover:text-white">
+              Performance
+            </a>
           </li>
           <li>
-            <FaDocker className="icon" />
-            <span className="label">
-              Docker <br />
-              Image
-              <br /> Generator
-            </span>
+            <a href="#" className="text-gray-300 hover:text-white">
+              Docker
+            </a>
           </li>
         </ul>
       </div>
-    </div>
+    </nav>
   );
 }
 export default Sidebar;

@@ -1,27 +1,51 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setShardsValue, setReplicasValue, setSentinelsValue } from "../Redux/slices/sliderSlice";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setShardsValue,
+  setReplicasValue,
+  setSentinelsValue,
+} from '../Redux/slices/sliderSlice';
+import '../../public/style.css';
 
 const RedisForm = () => {
   const dispatch = useDispatch();
   const sliderState = useSelector(state => state.slider);
   // console.log("redisState", redisState);
 
-
-
   return (
-    <form id="redis-form" action="/api/createFiles" method="POST">
-      <h1 id='redis-conf-header'>redis.conf customization</h1>
-      <h2>Administration</h2>
-      
+    <form
+      id="redis-form"
+      action="/api/createFiles"
+      method="POST"
+      className="p-0"
+    >
+      {/* <h1 id="redis-conf-header">redis.conf customization</h1> */}
+      {/* <h2>Administration</h2> */}
+    <input type='hidden' name='shards' id='shards' value={sliderState.shardsValue} />
+    <input type="hidden" name="replicas" id="replicas" value={sliderState.replicasValue} />
       <div id="admin">
-
-        <div className="redis-form-input">
+        {/* <div className="redis-form-input">
           <label htmlFor="shards">number of shards</label>
-          <input type="number" name="shards" id="shards" value={sliderState.shardsValue} onChange={e=>{dispatch(setShardsValue(e.target.value))}} />
+          <input
+            type="number"
+            name="shards"
+            id="shards"
+            value={sliderState.shardsValue}
+            onChange={e => {
+              dispatch(setShardsValue(e.target.value));
+            }}
+          />
           <label htmlFor="replicas">number of replicas</label>
-          <input type="number" name="replicas" id="replicas" value={sliderState.replicasValue} onChange={e=>{dispatch(setReplicasValue(e.target.value))}} />
-        </div>
+          <input
+            type="number"
+            name="replicas"
+            id="replicas"
+            value={sliderState.replicasValue}
+            onChange={e => {
+              dispatch(setReplicasValue(e.target.value));
+            }}
+          />
+        </div> */}
 
         <div className="redis-form-input">
         </div>
@@ -35,7 +59,7 @@ const RedisForm = () => {
           <label htmlFor="masterAuth">require masterauth password?</label>
           <input name="masterAuth" id="masterAuth" type="text" />
         </div>
-       
+
         <div className="redis-form-input">
           <label htmlFor="masterUser">require masteruser credentials?</label>
           <input name="masterUser" id="masterUser" type="text" />
@@ -52,8 +76,10 @@ const RedisForm = () => {
 
       <div className="redis-form-input">
         <label htmlFor="loglevel">log setting</label>
-        <select name="loglevel" id="loglevel" >
-          <option selected value="notice">notice</option>
+        <select name="loglevel" id="loglevel">
+          <option selected value="notice">
+            notice
+          </option>
           <option value="verbose">verbose</option>
           <option value="debug">debug</option>
         </select>
@@ -63,8 +89,6 @@ const RedisForm = () => {
         <label htmlFor="timeout">timeout</label>
         <input name="timeout" id="timeout" type="number" defaultValue={3000} />
       </div>
-
-      <h2>Persistance Management</h2>
 
       <div id="persistance">
         <div className="redis-form-input">
@@ -87,18 +111,17 @@ const RedisForm = () => {
 
         <div className="redis-form-input">
           <label htmlFor="appendfsync">choose an AOF sync method</label>
-          <select name="appendfsync" id="appendfsync" >
-            <option selected value="everysec">everysec</option>
+          <select name="appendfsync" id="appendfsync">
+            <option selected value="everysec">
+              everysec
+            </option>
             <option value="no">no</option>
             <option value="always">always</option>
           </select>
-        </div >
+        </div>
       </div>
 
-      <h2>Memory and Performance Management</h2>  
-
       <div id="memory">
-
         <div className="redis-form-input">
           <label htmlFor="rdbcompression">rdb compression</label>
           <select name="rdbcompression" id="rdbcompression" type="checkbox" value={true}>
@@ -128,10 +151,12 @@ const RedisForm = () => {
           <input name="maxmemory" id="maxmemory" type="number" defaultValue={30000}/>
         </div>
 
-        <div className="redis-form-input"> 
+        <div className="redis-form-input">
           <label htmlFor="maxmemoryPolicy"></label>
-          <select name="maxmemoryPolicy" id="maxmemoryPolicy" >
-            <option selected value="noeviction">noeviction</option>
+          <select name="maxmemoryPolicy" id="maxmemoryPolicy">
+            <option selected value="noeviction">
+              noeviction
+            </option>
             <option value="allkeys-lru">allkeys-lru</option>
             <option value="volatile-lru">volatile-lru</option>
             <option value="allkeys-lfu">allkey=lfu</option>
@@ -139,12 +164,13 @@ const RedisForm = () => {
             <option value="volatile-random">voltile-random</option>
             <option value="allkeys-random">allkey-random</option>
           </select>
+          <button type="submit" className="">
+            submit config
+          </button>
         </div>
       </div>
-      <button type="submit">submit config</button>
-      
     </form>
-  )
+  );
 };
 
 export default RedisForm;

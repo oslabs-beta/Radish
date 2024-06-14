@@ -22,7 +22,7 @@ const Slider = () => {
   console.log('replicasValue', replicasValue);
 
   return (
-    <div>
+    <div className="space-y-4">
       {/* <SliderComponent
         label="Number of sentinels"
         value={sentinelsValue}
