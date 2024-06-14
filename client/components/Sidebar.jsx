@@ -7,43 +7,27 @@ import { IoIosMenu } from "react-icons/io";
 
 function Sidebar() {
   return (
-    <nav className="bg-white text-black w-64 min-h-screen shadow-lg">
+    <nav className="bg-gray-800 text-white w-64 min-h-screen">
       <div className="px-4 py-6">
         <ul className="space-y-4">
           <li>
-            <a
-              href="#"
-              className="flex items-center space-x-2 text-gray-700 hover:text-black"
-            >
-              <GiDiamondTrophy className="text-xl" />
-              <span>Configuration</span>
+            <a href="#" className="text-gray-300 hover:text-white">
+              Configuration
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="flex items-center space-x-2 text-gray-700 hover:text-black"
-            >
-              <MdOutlineMonitorHeart className="text-xl" />
-              <span>Pricing</span>
+            <a href="#" className="text-gray-300 hover:text-white">
+              Pricing
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="flex items-center space-x-2 text-gray-700 hover:text-black"
-            >
-              <GrDocumentConfig className="text-xl" />
-              <span>Performance</span>
+            <a href="#" className="text-gray-300 hover:text-white">
+              Performance
             </a>
           </li>
           <li>
-            <a
-              href="#"
-              className="flex items-center space-x-2 text-gray-700 hover:text-black"
-            >
-              <FaDocker className="text-xl" />
-              <span>Docker</span>
+            <a href="#" className="text-gray-300 hover:text-white">
+              Docker
             </a>
           </li>
         </ul>
