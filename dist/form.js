@@ -6,7 +6,9 @@ function submitOptions() {
     const selectedOptions = {
         region: rgn,
         instantType: insTyp,
-        operatingSystem: OS 
+        operatingSystem: OS,
+        shardsValue: shardsValue, // Access from Redux store
+        replicasValue: replicasValue // Access from Redux store
     };
   
     fetch('/api', {
@@ -24,6 +26,3 @@ function submitOptions() {
         console.error('Error:', error);
       });
 }
-
-
-  
