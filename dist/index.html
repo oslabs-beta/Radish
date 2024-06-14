@@ -1,15 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RADISH</title>
-  <script defer src="bundle3524a5686bf86e375c2f.js"></script></head>
-  <body>
-    <div class="container">
-      <!-- <img id="logoImg" alt="logo" /> -->
-      <h1>RADISH</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RADISH</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="bundle3524a5686bf86e375c2f.js"></script>
+  <script defer src="form.js"></script>
+</head>
+<body>
+  <div class="container">
+    <img id="logoImg" alt="logo" />
+    <h1><p style="text-align: center">RADISH</p></h1>
+    <div class="text-box"> AWS Options </div>
+    <div class="visualization">Visualization</div>
+    <div class="text-box"> Pricing Data </div>
+    <div class="dropdown-container" style="margin-top: 10px;">
+      <div class="dropdown-menu">
+        <label for="options1">Select a region:</label>
+        <select id="options1">
+          <option value="US-EAST (N.Virginia)">US-EAST (N.Virginia)</option>
+          <option value="US-EAST (Ohio)">US-EAST (Ohio)</option>
+          <option value="US-WEST (N.California)">US-WEST (N.California)</option>
+          <option value="US-WEST (Oregon)">US-WEST (Oregon)</option>
+          <option value="US-WEST (N.California)">US-WEST (N.California)</option>
+          <option value="Canada (Central)">Canada (Central)</option>
+          <option value="Canada West (Calgary)">Canada West (Calgary)</option>
+        </select>
+      </div>
+      <div class="dropdown-menu">
+        <label for="options2">Select an instance type:</label>
+        <select id="options2">
+          <option value="t4g.nano">t4g.nano</option>
+          <option value="t3a.nano">t3a.nano</option>
+          <option value="t3.nano">t3.nano</option>
+          <option value="t2.nano">t2.nano</option>
+          <option value="t4g.micro">t4g.micro</option>
+          <option value="t3g.micro">t3g.micro</option>
+          <option value="t4.micro">t4.micro</option>
+          <option value="t3.micro">t3.micro</option>
+          <option value="t4g.small">t4g.small</option>
+          <option value="t3a.small">t3a.small</option>
+        </select>
+      </div>
+      <div class="dropdown-menu">
+        <label for="options3">Select an operating system:</label>
+        <select id="options3">
+          <option value="Linux">Linux</option>
+          <option value="Windows Server">Windows Server</option>
+          <option value="Windows Server w/ SQL Server Standard">Windows Server w/ SQL Server Standard</option>
+          <option value="Windows Server w/ SQL Server Web">Windows Server w/ SQL Server Web</option>
+          <option value="Windows Server w/ SQL Server Enterprise">Windows Server w/ SQL Server Enterprise</option>
+          <option value="Red Hat Enterprise Linux">Red Hat Enterprise Linux</option>
+          <option value="SUSE Linux Enterprise Server">SUSE Linux Enterprise Server</option>
+          <option value="Linux Server w/ SQL Server Standard">Linux Server w/ SQL Server Standard</option>
+          <option value="Linux Server w/ SQL Server Web">Linux Server w/ SQL Server Web</option>
+          <option value="Linux Server w/ SQL Server Enterprise">Linux Server w/ SQL Server Enterprise</option>
+          <option value="Ubuntu Pro">Ubuntu Pro</option>
+        </select>
+      </div>
+      <button onclick="submitOptions()">Submit</button>
     </div>
-  </body>
+  </div>
+</body>
 </html>

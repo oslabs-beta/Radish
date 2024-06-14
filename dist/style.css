@@ -1,0 +1,63 @@
+/* style.css */
+body {
+  background-color: #e0f3ff;
+}
+
+.container {
+  text-align: center;
+}
+
+.text-box {
+  display: inline-block;
+  width: 10%;
+  padding: 60px;
+  background-color: lightblue;
+  color: orange;
+  border: 2px solid black;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.visualization {
+  display: inline-block;
+  width: 30%;
+  padding: 40px;
+  color: black;
+  background-color: lightcoral;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.dropdown-container {
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.dropdown-menu select {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Styling for the submit button */
+button {
+  margin-top: 20px; /* Add margin to move the button down */
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: darkgreen;
+}
