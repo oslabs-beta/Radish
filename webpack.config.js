@@ -1,53 +1,47 @@
-const path = require("path")
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const path = require("path");
 
 module.exports = {
-    mode: 'development',
-    entry:{
-      bundle: path.resolve(__dirname, 'src/index.js'),
-    } ,
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name][contenthash].js',
-        clean: true,
-        assetModuleFilename: '[name][ext]'
+  mode: "development",
+  entry: path.resolve(__dirname, "client/index.js"),
+  output: {
+    path: path.resolve(__dirname, "public"),
+    filename: "bundle.js",
+  },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, "public"),
     },
-    devtool: 'source-map',
-    devServer: {
-        static: {
-            directory: path.resolve(__dirname, 'dist')
+    port: 3000,
+    open: true,
+    proxy: [{
+      context: ['/test'],
+      target: 'http://localhost:80',
+    }]
+  },
+  resolve: {
+    modules: [path.resolve(__dirname, "node_modules")],
+    extensions: [".js", ".jsx"],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
         },
-        port: 3333,
-        open: true,
-        hot: true,
-        compress: true,
-        historyApiFallback: true,
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env'],
-                    }
-                }
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif|mp4|mp3)$/i,
-                type: 'asset/resource'
-            }
-        ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: "RADISH",
-            filename: "index.html",
-            template: 'src/template.html'
-        }),
-        new bundleAnalyzerPlugin(),
-    ]
-}
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.svg$/,
+        use: "file-loader",
+      },
+    ],
+  },
+};
