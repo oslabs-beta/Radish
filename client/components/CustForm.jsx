@@ -1,15 +1,16 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setShardsValue,
   setReplicasValue,
   setSentinelsValue,
-} from "../Redux/slices/sliderSlice";
-import "../../public/style.css";
+} from '../Redux/slices/sliderSlice';
+import '../../public/style.css';
 
 const RedisForm = () => {
   const dispatch = useDispatch();
-  const sliderState = useSelector((state) => state.slider);
+  const sliderState = useSelector(state => state.slider);
+  // console.log("redisState", redisState);
 
   const handleSliderChange = (field, value) => {
     if (field === "shards") {
@@ -165,11 +166,13 @@ const RedisForm = () => {
       >
         Submit Configuration
       </button>
+
     </form>
   );
 };
 
 export default RedisForm;
+
 
 // const RedisForm = () => {
 //   const dispatch = useDispatch();
@@ -342,3 +345,4 @@ export default RedisForm;
 // };
 
 // export default RedisForm;
+

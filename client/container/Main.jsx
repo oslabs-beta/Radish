@@ -1,9 +1,9 @@
-import React from "react";
-import Slider from "../components/Slider";
-import Visual from "../components/Visual";
-import Sidebar from "../components/Sidebar";
-import RedisForm from "../components/CustForm";
-import Header from "../components/Header";
+import React from 'react';
+import Slider from '../components/Slider';
+import Visual from '../components/Visual';
+import Sidebar from '../components/Sidebar';
+import RedisForm from '../components/CustForm';
+import Header from '../components/Header';
 
 function Main() {
   return (
@@ -11,11 +11,12 @@ function Main() {
       <Header />
       <div className="flex flex-1">
         <Sidebar />
-        <div className="flex flex-1">
-          <div className="w-1/4 p-4">
+        <div className="flex flex-1 ">
+          <div className="w-1/4 p-4 bg-black">
             <Slider />
+            <RedisForm />
           </div>
-          <div className="w-3/4 p-4">
+          <div className="w-3/4 p-4 bg-slate-800">
             <Visual />
             <RedisForm />
           </div>
