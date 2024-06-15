@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   font-family: 'Roboto', sans-serif;
   color: white;
@@ -5,13 +9,17 @@
   margin: 0;
   padding: 0;
 }
+
+body {
+  /* background-color: black; */
+  color: white;
+}
 :root {
   --main-color: rgb(104, 117, 217);
   --main-color-hover: rgb(104, 117, 217, 0.2);
   --track-color: #ddd;
   --mark-color: #aaaaaa;
   --shadow: rgb(192, 46, 42);
-  --bg: rgb(50, 50, 50);
 }
 .main-container {
   margin-left: 50px;
@@ -32,6 +40,7 @@
   display: flex;
   justify-content: center;
   margin: 10px;
+  padding-left: 10px;
 }
 .sliderLabel {
   width: 150px;
@@ -39,8 +48,6 @@
 }
 .customSlider {
   width: 200px;
-  /* margin: auto; */
-  /* flex-grow: 1; */
 
   margin: 0 30px;
 }
@@ -48,16 +55,14 @@
   width: 50px;
 }
 .customSlider-track {
-  /* Top value to align your track to the center of your thumb */
   top: 8px;
-  /* thickness of the track */
+
   height: 6px;
-  /* default color of your track */
+
   background: var(--track-color);
 }
 
 .customSlider-track.customSlider-track-0 {
-  /* color of the track before the thumb */
   background: var(--shadow);
 }
 .customSlider-thumb {
@@ -87,8 +92,6 @@
 .customSlider-mark.customSlider-mark-active {
   display: none;
 }
-
-/* sidebar */
 
 .sidebar {
   position: fixed;
@@ -133,7 +136,6 @@
   align-items: center;
   padding: 20px 20px;
   cursor: pointer;
-  text-shadow: 1px 1px 3px red;
 }
 
 .sidebar ul li:hover {
@@ -156,22 +158,19 @@
   opacity: 1;
 }
 
-
-/* redis form */
-
 #redis-form {
-  margin-left : 80px;
+  /* margin-left: 80px; */
   background-color: var(--bg);
-  padding: 20px;
+  padding-left: 10px;
 }
 
 #redis-form .redis-form-input {
   margin: 10px 0;
-  padding: 10px;
-  width: 94%;
+  padding: 5px 10px;
+  width: 90%;
 }
 
-#redis-form input[type="checkbox"] {
+#redis-form input[type='checkbox'] {
   width: 20px;
   height: 20px;
   border-radius: 50px;
@@ -192,10 +191,9 @@
 }
 
 #redis-conf-header {
-text-align: center;
+  text-align: center;
 }
 
 #redis-form option {
   color: black;
 }
-
