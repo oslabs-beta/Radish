@@ -15,13 +15,14 @@ const RedisForm = () => {
   return (
     <form
       id="redis-form"
-      action="/test/createFiles"
+      action="/api/createFiles"
       method="POST"
       className="p-0"
     >
       {/* <h1 id="redis-conf-header">redis.conf customization</h1> */}
       {/* <h2>Administration</h2> */}
-
+    <input type='hidden' name='shards' id='shards' value={sliderState.shardsValue} />
+    <input type="hidden" name="replicas" id="replicas" value={sliderState.replicasValue} />
       <div id="admin">
         {/* <div className="redis-form-input">
           <label htmlFor="shards">number of shards</label>
@@ -47,26 +48,30 @@ const RedisForm = () => {
         </div> */}
 
         <div className="redis-form-input">
-          <label htmlFor="port">Port</label>
-          <input name="port" id="port" type="number" />
         </div>
 
         <div className="redis-form-input">
-          <input name="daemonize" id="deamonize" type="checkbox" value={true} />
-          <label htmlFor="daemonize" className="">
-            daemonize?
-          </label>
+          <label htmlFor="portNumber" >Port</label>
+          <input name="portNumber" id="portNumber" type="number" defaultValue={6379} />
         </div>
 
         <div className="redis-form-input">
-          <label htmlFor="masterauth">require masterauth password?</label>
-          <input name="masterauth" id="masterauth" type="text" />
+          <label htmlFor="masterAuth">require masterauth password?</label>
+          <input name="masterAuth" id="masterAuth" type="text" />
         </div>
 
         <div className="redis-form-input">
-          <label htmlFor="masteruser">require masteruser credentials?</label>
-          <input name="masteruser" id="masteruser" type="text" />
+          <label htmlFor="masterUser">require masteruser credentials?</label>
+          <input name="masterUser" id="masterUser" type="text" />
         </div>
+      </div>
+
+      <div className="redis-form-input">
+        <label htmlFor="daemonize">daemonize?</label>
+        <select name="daemonize" id="daemonize">
+          <option selected value="no">no</option>
+          <option value="yes">yes</option>
+        </select>
       </div>
 
       <div className="redis-form-input">
@@ -82,33 +87,26 @@ const RedisForm = () => {
 
       <div className="redis-form-input">
         <label htmlFor="timeout">timeout</label>
-        <input name="timeout" id="timeout" type="number" />
+        <input name="timeout" id="timeout" type="number" defaultValue={3000} />
       </div>
 
       <div id="persistance">
         <div className="redis-form-input">
-          <h2>Persistance Management</h2>
-          <label htmlFor="saveSeconds">
-            minimum time between RDB snapshots
-          </label>
-          <input name="saveSeconds" id="saveSeconds" type="number" />
+          <label htmlFor="saveSeconds">minimum time between RDB snapshots</label>
+          <input name="saveSeconds" id="saveSeconds" type="number" defaultValue={0}/>
         </div>
 
         <div className="redis-form-input">
-          <label htmlFor="saveChanges">
-            number of changes made within time interval to trigger a snapshot
-          </label>
-          <input name="saveChanges" id="saveChanges" type="number" />
+          <label htmlFor="saveChanges">number of changes made within time interval to trigger a snapshot</label>
+          <input name="saveChanges" id="saveChanges" type="number" defaultValue={1}/>
         </div>
 
         <div className="redis-form-input">
-          <input
-            name="appendonly"
-            id="appendonly"
-            type="checkbox"
-            value={true}
-          />
-          <label for="appendonly">Enable appendonly (AOF) mode</label>
+          <label for="appendonly">enable appendonly (AOF) mode</label>
+          <select name="appendonly" id="appendonly" type="checkbox" value={true}>
+            <option selected value="no">no</option>
+            <option value="yes">yes</option>
+          </select>
         </div>
 
         <div className="redis-form-input">
@@ -125,39 +123,32 @@ const RedisForm = () => {
 
       <div id="memory">
         <div className="redis-form-input">
-          <h2>Memory and Performance Management</h2>
-          <input
-            name="rdbcompression"
-            id="rdbcompression"
-            type="checkbox"
-            value={true}
-          />
           <label htmlFor="rdbcompression">rdb compression</label>
+          <select name="rdbcompression" id="rdbcompression" type="checkbox" value={true}>
+            <option selected value="no">no</option>
+            <option value="yes">yes</option>
+          </select>
         </div>
 
         <div className="redis-form-input">
-          <input
-            name="rdbchecksum"
-            id="rdbchecksum"
-            type="checkbox"
-            value={true}
-          />
           <label htmlFor="rdbchecksum">redchecksum</label>
+          <select name="rdbchecksum" id="rdbchecksum" type="checkbox" value={true}>
+            <option selected value="no">no</option>
+            <option value="yes">yes</option>
+          </select>
         </div>
 
         <div className="redis-form-input">
-          <input
-            name="replicaServeStaleData"
-            id="replicaServeStaleData"
-            type="checkbox"
-            value={true}
-          />
           <label htmlFor="replicaServeStaleData">serve stale data?</label>
+          <select name="replicaServeStaleData" id="replicaServeStaleData" type="checkbox" value={true}>
+            <option selected value="no">no</option>
+            <option value="yes">yes</option>
+          </select>
         </div>
 
         <div className="redis-form-input">
           <label htmlFor="maxmemory"></label>
-          <input name="maxmemory" id="maxmemory" type="number" />
+          <input name="maxmemory" id="maxmemory" type="number" defaultValue={30000}/>
         </div>
 
         <div className="redis-form-input">
