@@ -9,7 +9,7 @@ const aws = require('aws-sdk');
 
 
 const app = express();
-const port = 80;
+const port = 8080;
 
 
 // Load .env variables
@@ -66,16 +66,38 @@ if (process.env.USE_REDIS === 'true') {
 }
 
 // POST route to handle form submission and write redis.conf file
-app.post('/createFiles', (req, res) => {
+app.post('/api/createFiles', (req, res) => {
   console.log(req.body);
   // Destructure form data on req.body
-  let { numShards, numReplicas, protectedMode, portNumber, masterAuth, requirePass } = req.body;
+  let { 
+    shards,
+    replicas, 
+    protectedMode, 
+    portNumber, 
+    masterAuth, 
+    requirePass, 
+    daemonize, 
+    loglevel,
+    timeout,
+    saveSeconds,
+    saveChanges,
+    appendonly,
+    appendfsync,
+    rdbcompression,
+    rdbchecksum,
+    replicaServeStaleData,
+    maxmemory,
+    maxmemoryPolicy
+   } = req.body;
+
+   console.log(daemonize)
+
 
   // Construct the output directory path
   const outputDir = path.join(__dirname, 'output');
 
   // Determine number of redis.conf files to write and initialize file counter
-  let redisFilesToWrite = numShards * numReplicas;
+  let redisFilesToWrite = shards * replicas;
   let redisFilesWritten = 0;
 
   let port = Number(portNumber);
@@ -83,29 +105,57 @@ app.post('/createFiles', (req, res) => {
   let dockerCompose = {
       version: '3.8',
       services: {},
-      volumes: {}
+      volumes: {},
+      networks: {
+          'redis-cluster': {
+              driver: 'bridge',
+              ipam: {
+                  config: [
+                      { subnet: '172.20.0.0/16' }
+                  ]
+              }
+          }
+      }
   };
   dockerCompose.services['app'] = {
       image: 'client-app-js:latest',
       container_name: 'client-app-js',
       ports: ['80:80'],
       environment: ['REDIS_HOST=Redis-0-0',`REDIS_PORT=${portNumber}`, `REDIS_PASSWORD=${masterAuth}`, 'USE_REDIS=true' ],
-      command: ['sh', '-c', 'sleep 10 && npm start']
+      command: ['sh', '-c', 'sleep 10 && npm start'], 
+      networks: ['redis-cluster']
   }
+
   
-  for (let i = 0; i < numShards; i++) {
-    for (let j = 0; j < numReplicas; j++) {
+  for (let i = 0; i < shards; i++) {
+    for (let j = 0; j < replicas; j++) {
       let serviceName = `redis-${i}-${j}`;
       let masterServiceName = `redis-${i}-0`;
       
       // Construct the content for redis.conf
-      let redisConfigContent = `protected-mode ${protectedMode}\nport ${port}\n`;
+      let redisConfigContent = `port ${port}
+daemonize ${daemonize}
+loglevel ${loglevel}
+timeout ${timeout}
+save ${saveSeconds} ${saveChanges}
+appendonly ${appendonly}
+appendfsync ${appendfsync}
+rdbcompression ${rdbcompression}
+rdbchecksum ${rdbchecksum}
+replica-serve-stale-data ${replicaServeStaleData}
+maxmemory ${maxmemory}
+maxmemory-policy ${maxmemoryPolicy}\n`;
+
 
       // The first config file is for a master node and does not have the replicaof property
-      if (j !== 0) redisConfigContent += `replicaof ${masterServiceName} ${port - j}\n`;
+      // if (j !== 0) redisConfigContent += `replicaof ${masterServiceName} ${port - j}\n`;
 
-      redisConfigContent += `# Authentication\nmasterauth ${masterAuth}\nrequirepass ${requirePass}\n`;
-
+      
+      redisConfigContent += `# Authentication\nmasterauth ${masterAuth}
+requirepass ${masterAuth}
+cluster-enabled yes
+cluster-config-file nodes.conf
+bind 0.0.0.0`;
       // Write each redis configuration file to the output folder
       let outputFile = path.join(outputDir, `redis-${i}-${j}.conf`);
       fs.writeFile(outputFile, redisConfigContent, (err) => {
@@ -139,7 +189,8 @@ app.post('/createFiles', (req, res) => {
                 `${volumeName}:/data`
             ],
             command: `redis-server /usr/local/etc/redis/redis.conf`,
-            ports: [`${port}:${port - j}`]
+            ports: [`${port}:${port - j}`],
+            networks: {'redis-cluster': {'ipv4_address': `172.20.0.${i+1}${j}`}}
         };
 
         // Add volume to the volumes section of the docker-compose file
@@ -284,7 +335,44 @@ app.post('/getPricing', async (req, res) => {
 app.post('/test/createFiles', (req, res) => {
   console.log('Received POST request to /test/createFiles');
   console.log('Request body:', req.body);
+  // console.log('daemonize:', req.body.daemonize);
+  let { 
+    shards,
+    replicas, 
+    protectedMode, 
+    portNumber, 
+    masterAuth, 
+    requirePass, 
+    daemonize, 
+    loglevel,
+    timeout,
+    saveSeconds,
+    saveChanges,
+    appendonly,
+    appendfsync,
+    rdbcompression,
+    rdbchecksum,
+    replicaServeStaleData,
+    maxmemory,
+    maxmemoryPolicy
+   } = req.body;
   // res.status(200).send('Received POST request to /test/createFiles');
+
+  let redisConfigContent = `protected-mode ${protectedMode}
+port ${port}
+daemonize ${daemonize}
+loglevel ${loglevel}
+timeout ${timeout}
+save ${saveSeconds} ${saveChanges}
+appendonly ${appendonly}
+appendfsync ${appendfsync}
+rdbcompression ${rdbcompression}
+rdbchecksum ${rdbchecksum}
+replica-serve-stale-data ${replicaServeStaleData}
+maxmemory ${maxmemory}
+maxmemory-policy ${maxmemoryPolicy}`;
+
+      console.log(redisConfigContent)
 });
 
 app.listen(port, () => {
