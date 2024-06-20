@@ -8,7 +8,7 @@ services:
     environment:
       - REDIS_HOST=Redis-0-0
       - REDIS_PORT=6379
-      - REDIS_PASSWORD=
+      - REDIS_PASSWORD=password
       - USE_REDIS=true
     command:
       - sh
@@ -88,42 +88,6 @@ services:
     networks:
       redis-cluster:
         ipv4_address: 172.20.0.22
-  redis-2-0:
-    image: redis:latest
-    container_name: redis-2-0
-    volumes:
-      - ./redis-2-0.conf:/usr/local/etc/redis/redis.conf
-      - redis-2-0-data:/data
-    command: redis-server /usr/local/etc/redis/redis.conf
-    ports:
-      - '6385:6385'
-    networks:
-      redis-cluster:
-        ipv4_address: 172.20.0.30
-  redis-2-1:
-    image: redis:latest
-    container_name: redis-2-1
-    volumes:
-      - ./redis-2-1.conf:/usr/local/etc/redis/redis.conf
-      - redis-2-1-data:/data
-    command: redis-server /usr/local/etc/redis/redis.conf
-    ports:
-      - '6386:6385'
-    networks:
-      redis-cluster:
-        ipv4_address: 172.20.0.31
-  redis-2-2:
-    image: redis:latest
-    container_name: redis-2-2
-    volumes:
-      - ./redis-2-2.conf:/usr/local/etc/redis/redis.conf
-      - redis-2-2-data:/data
-    command: redis-server /usr/local/etc/redis/redis.conf
-    ports:
-      - '6387:6385'
-    networks:
-      redis-cluster:
-        ipv4_address: 172.20.0.32
 volumes:
   redis-0-0-data: {}
   redis-0-1-data: {}
@@ -131,9 +95,6 @@ volumes:
   redis-1-0-data: {}
   redis-1-1-data: {}
   redis-1-2-data: {}
-  redis-2-0-data: {}
-  redis-2-1-data: {}
-  redis-2-2-data: {}
 networks:
   redis-cluster:
     driver: bridge

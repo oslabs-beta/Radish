@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./public/",
+    "noImplicitAny": true,
+    "module": "CommonJS",
+    "target": "es6",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  }, 
+  "include": ["client/**/*", "server/**/*"],
+  "exclude": ["node_modules"]
+
+}

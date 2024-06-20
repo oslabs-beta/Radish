@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setShardsValue,
-  setReplicasValue,
-  setSentinelsValue,
-} from '../Redux/slices/sliderSlice';
 import '../../public/style.css';
+import { useAppSelector } from '../Redux/store';
 
-const RedisForm = () => {
-  const dispatch = useDispatch();
-  const sliderState = useSelector(state => state.slider);
+
+const RedisForm: FC = (): ReactElement => {
+  const sliderState = useAppSelector(state => state.slider);
   // console.log("redisState", redisState);
 
   return (
@@ -86,13 +82,13 @@ const RedisForm = () => {
       </div>
 
       <div className="redis-form-input">
-        <label htmlFor="timeout">timeout</label>
-        <input name="timeout" id="timeout" type="number" defaultValue={3000} />
+        <label htmlFor="timeout">node timeout (seconds)</label>
+        <input name="timeout" id="timeout" type="number" defaultValue={0} />
       </div>
 
       <div id="persistance">
         <div className="redis-form-input">
-          <label htmlFor="saveSeconds">minimum time between RDB snapshots</label>
+          <label htmlFor="saveSeconds">minimum time between RDB snapshots (seconds)</label>
           <input name="saveSeconds" id="saveSeconds" type="number" defaultValue={0}/>
         </div>
 
@@ -147,12 +143,12 @@ const RedisForm = () => {
         </div>
 
         <div className="redis-form-input">
-          <label htmlFor="maxmemory"></label>
-          <input name="maxmemory" id="maxmemory" type="number" defaultValue={30000}/>
+          <label htmlFor="maxmemory">Maximum memory allowed (in bytes)</label>
+          <input name="maxmemory" id="maxmemory" type="number" defaultValue={5368709120}/>
         </div>
 
         <div className="redis-form-input">
-          <label htmlFor="maxmemoryPolicy"></label>
+          <label htmlFor="maxmemoryPolicy">Maxmemory eviction policy</label>
           <select name="maxmemoryPolicy" id="maxmemoryPolicy">
             <option selected value="noeviction">
               noeviction
