@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "nodemon server/server.js",
-    "dev": "webpack serve & nodemon server/server.js",
+    "dev": "webpack serve & nodemon --exec ts-node ./server/server.ts",
     "backend": "nodemon server/server.js"
   },
   "author": "",
@@ -60,6 +60,7 @@
     "style-loader": "^4.0.0",
     "tailwindcss": "^3.4.4",
     "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "webpack": "^5.91.0",
     "webpack-bundle-analyzer": "^4.10.2",

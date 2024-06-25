@@ -36,7 +36,7 @@ fileGenerationController.createFiles = (req: Request, res: Response, next) => {
 
 
   // Construct the output directory path
-  const outputDir = path.join(__dirname, 'output');
+  const outputDir = path.join(__dirname, '../output');
 
   // Determine number of redis.conf files to write and initialize file counter
   let redisFilesToWrite = shards * replicas;
@@ -115,7 +115,8 @@ bind 0.0.0.0`;
                   if (err) {
                       console.error('Error writing docker-compose.yml file:', err);
                   }
-                  res.status(200).json({ message: `All configuration files written successfully to path: ${outputDir}` });
+                  next();
+                //   res.status(200).json({ message: `All configuration files written successfully to path: ${outputDir}` });
               });
           }
         });
