@@ -1,5 +1,6 @@
 const aws = require('aws-sdk');
 require('dotenv').config();
+import { Request, Response, NextFunction } from 'express';
 
 // Set AWS credentials and region from environment variables. 
 //For this to work properly, you will need an AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in a .env file located in the project root.
@@ -11,9 +12,9 @@ aws.config.update({
 });
 
 
-const awsPricingController = {};
+const awsPricingController: { [key: string]: (req: Request, res: Response, next: NextFunction) => void } = {};
 
-awsPricingController.getEC2Pricing = async (req, res, next) => {
+awsPricingController.getEC2Pricing = async (req: Request, res: Response, next: NextFunction) => {
   const { region, instanceType, operatingSystem, instanceCount } = req.body;
 
   if (!region || !instanceType || !instanceCount) {
@@ -21,8 +22,8 @@ awsPricingController.getEC2Pricing = async (req, res, next) => {
   }
 
   // Helper function to get region name
-  function getRegionName(regionCode) {
-      const regions = {
+  function getRegionName(regionCode: string) {
+      const regions: {[key: string]: string} = {
       'us-east-1': 'US East (N. Virginia)',
       'us-west-1': 'US West (N. California)',
       'us-west-2': 'US West (Oregon)',
@@ -53,10 +54,25 @@ awsPricingController.getEC2Pricing = async (req, res, next) => {
       const priceList = data.PriceList;
       console.log('Number of products:', priceList.length)
 
-      const pricingTermsArray = [];
+      // Ask Jay about what this data actually looks like
+
+      type Product = typeof priceList[0];
+      interface PricingTerm {
+            id: number;
+            paymentTerms: string;
+            description: string;
+            purchaseOption: string;
+            pricePerUnit: number | "N/A";
+            unit: string;
+            leaseContractLength: string | "N/A";
+            upfrontFee: number | "N/A";
+            monthlyTotalPrice: number;
+      }
+
+      const pricingTermsArray: PricingTerm[] = [];
       let idCounter = 1;
 
-      priceList.forEach((product, index) => {
+      priceList.forEach((product: Product, index: number) => {
           // const operatingSystem = product.attributes.operatingSystem;
           const terms = product.terms;
           const AVERAGE_MONTHLY_HOURS = 730; // Average hours in a month

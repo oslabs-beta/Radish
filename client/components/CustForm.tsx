@@ -1,11 +1,12 @@
 import React, { FC, ReactElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import '../../public/style.css';
 import { useAppSelector } from '../Redux/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../Redux/store';
 
 
 const RedisForm: FC = (): ReactElement => {
-  const sliderState = useAppSelector(state => state.slider);
+  const sliderState = useSelector((state: RootState) => state.slider);
   // console.log("redisState", redisState);
 
   return (
@@ -98,8 +99,8 @@ const RedisForm: FC = (): ReactElement => {
         </div>
 
         <div className="redis-form-input">
-          <label for="appendonly">enable appendonly (AOF) mode</label>
-          <select name="appendonly" id="appendonly" type="checkbox" value={true}>
+          <label htmlFor="appendonly">enable appendonly (AOF) mode</label>
+          <select name="appendonly" id="appendonly">
             <option selected value="no">no</option>
             <option value="yes">yes</option>
           </select>
@@ -120,7 +121,7 @@ const RedisForm: FC = (): ReactElement => {
       <div id="memory">
         <div className="redis-form-input">
           <label htmlFor="rdbcompression">rdb compression</label>
-          <select name="rdbcompression" id="rdbcompression" type="checkbox" value={true}>
+          <select name="rdbcompression" id="rdbcompression">
             <option selected value="no">no</option>
             <option value="yes">yes</option>
           </select>
@@ -128,7 +129,7 @@ const RedisForm: FC = (): ReactElement => {
 
         <div className="redis-form-input">
           <label htmlFor="rdbchecksum">redchecksum</label>
-          <select name="rdbchecksum" id="rdbchecksum" type="checkbox" value={true}>
+          <select name="rdbchecksum" id="rdbchecksum" >
             <option selected value="no">no</option>
             <option value="yes">yes</option>
           </select>
@@ -136,7 +137,7 @@ const RedisForm: FC = (): ReactElement => {
 
         <div className="redis-form-input">
           <label htmlFor="replicaServeStaleData">serve stale data?</label>
-          <select name="replicaServeStaleData" id="replicaServeStaleData" type="checkbox" value={true}>
+          <select name="replicaServeStaleData" id="replicaServeStaleData">
             <option selected value="no">no</option>
             <option value="yes">yes</option>
           </select>

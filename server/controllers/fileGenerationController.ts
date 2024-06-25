@@ -1,10 +1,14 @@
 const yaml = require('js-yaml');
 const fs = require('fs');
 const path = require('path'); 
+import { Request, Response, NextFunction } from 'express'
+import { DockerComposeFile } from '../../types/types';
 
-const fileGenerationController = {};
 
-fileGenerationController.createFiles = (req, res, next) => {
+
+const fileGenerationController : { [key: string]: (req: Request, res: Response, next: NextFunction) => void } = {};
+
+fileGenerationController.createFiles = (req: Request, res: Response, next) => {
   console.log(req.body);
   // Destructure form data on req.body
   let { 
@@ -40,7 +44,7 @@ fileGenerationController.createFiles = (req, res, next) => {
 
   let port = Number(portNumber);
 
-  let dockerCompose = {
+  const dockerCompose: DockerComposeFile = {
       version: '3.8',
       services: {},
       volumes: {},
@@ -97,7 +101,7 @@ bind 0.0.0.0`;
 
       // Write each redis configuration file to the output folder
       let outputFile = path.join(outputDir, `redis-${i}-${j}.conf`);
-      fs.writeFile(outputFile, redisConfigContent, (err) => {
+      fs.writeFile(outputFile, redisConfigContent, (err: Error) => {
           if (err) {
               console.error('Error writing redis.conf file(s):', err);
               return res.status(500).json({ error: 'Internal Server Error' });
@@ -107,7 +111,7 @@ bind 0.0.0.0`;
           if (redisFilesWritten === redisFilesToWrite) {
               // Write the require docker-compose.yml file
               const dockerComposeFile = path.join(outputDir, 'docker-compose.yml');
-              fs.writeFile(dockerComposeFile, yaml.dump(dockerCompose), (err) => {
+              fs.writeFile(dockerComposeFile, yaml.dump(dockerCompose), (err: Error) => {
                   if (err) {
                       console.error('Error writing docker-compose.yml file:', err);
                   }
@@ -117,7 +121,7 @@ bind 0.0.0.0`;
         });
 
         // Define volume(s) to ensure data persistence after docker containers are stopped and removed.
-        let volumeName = `redis-${i}-${j}-data`;
+        const volumeName = `redis-${i}-${j}-data`;
 
         // Add each redis instance to the docker-compose configuration
         dockerCompose.services[`redis-${i}-${j}`] = {

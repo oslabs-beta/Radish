@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   }, 
-  "include": ["client/**/*", "server/**/*"],
+  "include": ["client/**/*", "server/**/*", "svg.d.ts"],
   "exclude": ["node_modules"]
 
 }

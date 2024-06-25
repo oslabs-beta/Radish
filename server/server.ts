@@ -1,4 +1,4 @@
-const express = require('express');
+import express, { Request, Response } from 'express';   
 const bodyParser = require('body-parser');
 const { createClient } = require('redis');
 const { createFiles } = require('./controllers/fileGenerationController');
@@ -27,13 +27,13 @@ if (process.env.USE_REDIS === 'true') {
       url: `redis://:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
     });
     
-    redisMaster.on('error', err => console.error('Redis Master Error:', err));
+    redisMaster.on('error', (err: Error) => console.error('Redis Master Error:', err));
     
     redisMaster.connect()
         .then(() => console.log(`Redis client connected to ${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`))
-        .catch(err => console.error('Redis Master Connection Error:', err));
+        .catch((err: Error) => console.error('Redis Master Connection Error:', err));
     
-    app.get('/', async (req, res) => {
+    app.get('/', async (req: Request, res: Response) => {
         try {
             let counter = await redisMaster.get('counter');
             if (!counter) {
@@ -53,13 +53,13 @@ if (process.env.USE_REDIS === 'true') {
 }
 
 // POST route to handle form submission and write redis.conf file
-app.post('/api/createFiles', createFiles, (req, res) => {
+app.post('/api/createFiles', createFiles, (req : Request, res: Response) => {
     res.status(200).send('Files created successfully');
 });
 
 
 // Post route to handle the fetching of EC2 pricing given inputs from the front end
-app.post('/getPricing', getEC2Pricing, (req, res) => {
+app.post('/getPricing', getEC2Pricing, (req: Request, res: Response) => {
     res.status(200).json(res.locals.pricingTermsArray);
 }); 
 
@@ -70,18 +70,20 @@ app.listen(port, () => {
 
 // Handle termination signals (i.e,. crtl+c ) when using Docker-Compose
 // Without these methods, the termination signal hangs and the container for this app does not gracefully stop.
-process.on('SIGTERM', () => {
-  console.log('SIGTERM signal received: closing HTTP server');
-  redisClient.quit();
-  server.close(() => {
-      console.log('HTTP server closed');
-  });
-});
 
-process.on('SIGINT', () => {
-  console.log('SIGINT signal received: closing HTTP server');
-  redisClient.quit();
-  server.close(() => {
-      console.log('HTTP server closed');
-  });
-});
+
+// process.on('SIGTERM', () => {
+//   console.log('SIGTERM signal received: closing HTTP server');
+//   redisClient.quit();
+//   server.close(() => {
+//       console.log('HTTP server closed');
+//   });
+// });
+
+// process.on('SIGINT', () => {
+//   console.log('SIGINT signal received: closing HTTP server');
+//   redisClient.quit();
+//   server.close(() => {
+//       console.log('HTTP server closed');
+//   });
+// });
