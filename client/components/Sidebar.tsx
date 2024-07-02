@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, ReactElement, FC } from "react";
 import { FaDocker } from "react-icons/fa";
 import { GiDiamondTrophy } from "react-icons/gi";
 import { MdOutlineMonitorHeart } from "react-icons/md";
 import { GrDocumentConfig } from "react-icons/gr";
 import { IoIosMenu } from "react-icons/io";
 
-function Sidebar() {
+const Sidebar: FC =  (): ReactElement => {
   return (
     <nav className="bg-gray-800 text-white w-64 min-h-screen">
       <div className="px-4 py-6">

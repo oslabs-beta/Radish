@@ -1,15 +1,12 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setShardsValue,
-  setReplicasValue,
-  setSentinelsValue,
-} from '../Redux/slices/sliderSlice';
+import React, { FC, ReactElement } from 'react';
 import '../../public/style.css';
+import { useAppSelector } from '../Redux/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../Redux/store';
 
-const RedisForm = () => {
-  const dispatch = useDispatch();
-  const sliderState = useSelector(state => state.slider);
+
+const RedisForm: FC = (): ReactElement => {
+  const sliderState = useSelector((state: RootState) => state.slider);
   // console.log("redisState", redisState);
 
   return (
@@ -86,13 +83,13 @@ const RedisForm = () => {
       </div>
 
       <div className="redis-form-input">
-        <label htmlFor="timeout">timeout</label>
-        <input name="timeout" id="timeout" type="number" defaultValue={3000} />
+        <label htmlFor="timeout">node timeout (seconds)</label>
+        <input name="timeout" id="timeout" type="number" defaultValue={0} />
       </div>
 
       <div id="persistance">
         <div className="redis-form-input">
-          <label htmlFor="saveSeconds">minimum time between RDB snapshots</label>
+          <label htmlFor="saveSeconds">minimum time between RDB snapshots (seconds)</label>
           <input name="saveSeconds" id="saveSeconds" type="number" defaultValue={0}/>
         </div>
 
@@ -102,8 +99,8 @@ const RedisForm = () => {
         </div>
 
         <div className="redis-form-input">
-          <label for="appendonly">enable appendonly (AOF) mode</label>
-          <select name="appendonly" id="appendonly" type="checkbox" value={true}>
+          <label htmlFor="appendonly">enable appendonly (AOF) mode</label>
+          <select name="appendonly" id="appendonly">
             <option selected value="no">no</option>
             <option value="yes">yes</option>
           </select>
@@ -124,7 +121,7 @@ const RedisForm = () => {
       <div id="memory">
         <div className="redis-form-input">
           <label htmlFor="rdbcompression">rdb compression</label>
-          <select name="rdbcompression" id="rdbcompression" type="checkbox" value={true}>
+          <select name="rdbcompression" id="rdbcompression">
             <option selected value="no">no</option>
             <option value="yes">yes</option>
           </select>
@@ -132,7 +129,7 @@ const RedisForm = () => {
 
         <div className="redis-form-input">
           <label htmlFor="rdbchecksum">redchecksum</label>
-          <select name="rdbchecksum" id="rdbchecksum" type="checkbox" value={true}>
+          <select name="rdbchecksum" id="rdbchecksum" >
             <option selected value="no">no</option>
             <option value="yes">yes</option>
           </select>
@@ -140,19 +137,19 @@ const RedisForm = () => {
 
         <div className="redis-form-input">
           <label htmlFor="replicaServeStaleData">serve stale data?</label>
-          <select name="replicaServeStaleData" id="replicaServeStaleData" type="checkbox" value={true}>
+          <select name="replicaServeStaleData" id="replicaServeStaleData">
             <option selected value="no">no</option>
             <option value="yes">yes</option>
           </select>
         </div>
 
         <div className="redis-form-input">
-          <label htmlFor="maxmemory"></label>
-          <input name="maxmemory" id="maxmemory" type="number" defaultValue={30000}/>
+          <label htmlFor="maxmemory">Maximum memory allowed (in bytes)</label>
+          <input name="maxmemory" id="maxmemory" type="number" defaultValue={5368709120}/>
         </div>
 
         <div className="redis-form-input">
-          <label htmlFor="maxmemoryPolicy"></label>
+          <label htmlFor="maxmemoryPolicy">Maxmemory eviction policy</label>
           <select name="maxmemoryPolicy" id="maxmemoryPolicy">
             <option selected value="noeviction">
               noeviction
