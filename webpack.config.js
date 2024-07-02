@@ -20,7 +20,7 @@ module.exports = {
   },
   resolve: {
     modules: [path.resolve(__dirname, "node_modules")],
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   module: {
     rules: [
@@ -33,6 +33,12 @@ module.exports = {
             presets: ["@babel/preset-env", "@babel/preset-react"],
           },
         },
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/i,
