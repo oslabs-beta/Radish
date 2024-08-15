@@ -1,7 +1,9 @@
 
 import express, { Request, Response } from 'express';
-
+// const express = require('express');
 // const { Request, Response } = require('express');
+
+// const { Request: ExpressRequest, Response: ExpressResponse } = express;
 const path = require('path');
 const User = require('./models/User');
 const { getClusterIps } = require('./controllers/userController');
