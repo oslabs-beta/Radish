@@ -1,6 +1,11 @@
-import { Memory } from '@mui/icons-material';
+
 import express, { Request, Response } from 'express';
-import User from './models/User';
+// const express = require('express');
+// const { Request, Response } = require('express');
+
+// const { Request: ExpressRequest, Response: ExpressResponse } = express;
+const path = require('path');
+const User = require('./models/User');
 const { getClusterIps } = require('./controllers/userController');
 // import { verifyCookie } from './controllers/authController';
 const bodyParser = require('body-parser');
@@ -55,44 +60,48 @@ console.log('Connect to Redis?', process.env.USE_REDIS);
 console.log('Redis Password:', process.env.REDIS_PASSWORD);
 
 // Connect to redis cluster when the docker-compose file tells us to do so
-if (process.env.USE_REDIS === 'true') {
-  const redisMaster = createClient({
-    url: `redis://:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
-  });
+// if (process.env.USE_REDIS === 'true') {
+//   const redisMaster = createClient({
+//     url: `redis://:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+//   });
 
-  redisMaster.on('error', (err: Error) =>
-    console.error('Redis Master Error:', err)
-  );
+//   redisMaster.on('error', (err: Error) =>
+//     console.error('Redis Master Error:', err)
+//   );
 
-  redisMaster
-    .connect()
-    .then(() =>
-      console.log(
-        `Redis client connected to ${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
-      )
-    )
-    .catch((err: Error) =>
-      console.error('Redis Master Connection Error:', err)
-    );
+//   redisMaster
+//     .connect()
+//     .then(() =>
+//       console.log(
+//         `Redis client connected to ${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
+//       )
+//     )
+//     .catch((err: Error) =>
+//       console.error('Redis Master Connection Error:', err)
+//     );
 
-  app.get('/', async (req: Request, res: Response) => {
-    try {
-      let counter = await redisMaster.get('counter');
-      if (!counter) {
-        await redisMaster.set('counter', 1);
-        counter = 1;
-      } else {
-        counter = parseInt(counter) + 1;
-        await redisMaster.set('counter', counter);
-      }
-      res.send(counter.toString());
-      console.log('counter:', counter);
-    } catch (error) {
-      console.error('Error:', error);
-      res.status(500).send('Internal Server Error');
-    }
-  });
-}
+//   app.get('/', async (req: Request, res: Response) => {
+//     try {
+//       let counter = await redisMaster.get('counter');
+//       if (!counter) {
+//         await redisMaster.set('counter', 1);
+//         counter = 1;
+//       } else {
+//         counter = parseInt(counter) + 1;
+//         await redisMaster.set('counter', counter);
+//       }
+//       res.send(counter.toString());
+//       console.log('counter:', counter);
+//     } catch (error) {
+//       console.error('Error:', error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   });
+// }
+app.use(express.static(path.join(__dirname, '../public')));
+app.get('/', (req: Request, res: Response) => {
+	res.status(200).sendFile(path.join(__dirname, '../public/index.html'))
+});
 
 app.use(cookieParser());
 app.use('/api/users', require('./routes/userRoutes'));
