@@ -1,0 +1,7 @@
+version: 1.0
+runtime: nodejs
+runtimeVersion: 20.7.0
+build:
+  commands:
+    build: npm install
+startCommand: npm start
