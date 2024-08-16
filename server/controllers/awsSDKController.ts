@@ -44,10 +44,12 @@ awsSDKController.createSecurityGroup = async (req: Request, res: Response, next:
   const ec2 = new aws.EC2();
 
   console.log('vpcID: ', vpcID)
+
+  const randomNum = Math.floor(Math.random() * 1000);
  
   const securityGroupParams: {Description: string; GroupName: string; VpcId: String} = {
     Description: 'Security group for Redis Cluster',
-    GroupName: 'RedisClusterSecurityGroup12',
+    GroupName: `RedisClusterSecurityGroup${randomNum}`,
     VpcId: vpcID
   };
 
