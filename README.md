@@ -51,9 +51,21 @@ Understanding the performance of your Redis instances is essential for maintaini
 ## <p align="center">Future Features in Roadmap</p>
 We’re just getting started! Future plans for Radish include more granular visualizations and support for new genAI (Redis Vector Library) features.
 
+## <p align="center">Start to Contribute</p>
+
+Add .env file, something like below:
+
+```bash
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+MONGO_URI=
+JWT_SECRET=
+```
+
+
 ## Authors
 
-| Name             | Connect with Us  | Check out Our Work |
+| Name             | Connect with Us  | Check out our Work |
 |------------------|-------------------|---------------------|
 | Tom Djergian  | [LinkedIn](www.linkedin.com/in/thomas-djergian) | [GitHub](https://github.com/Tdjergian) |
 | Jay Hoogheem   | [LinkedIn](https://www.linkedin.com/in/jay-hoogheem-26a468a/) | [GitHub](https://github.com/Jaysus119) |
