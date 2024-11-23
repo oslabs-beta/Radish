@@ -1,12 +1,9 @@
 import React, { FC, ReactElement, useRef, FormEvent } from "react";
 import "../../public/style.css";
-// import { useAppSelector, useAppDispatch } from "../Redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../Redux/store";
-// import { Tooltip } from 'chart.js';
 import { Tooltip } from "react-tooltip";
-// import "../../public/style.css";
 import {
   setPort,
   setMasterauth,
@@ -30,7 +27,6 @@ const RedisForm: FC = (): ReactElement => {
   const navigate = useNavigate();
 
   const formRef = useRef(null);
-  // console.log("redisState", redisState);
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,7 +85,8 @@ const RedisForm: FC = (): ReactElement => {
           <div className="redis-form-input">
             <a
               data-tooltip-id="masterauth"
-              data-tooltip-content="The password used for authenticating the Redis replica (slave) with the master instance in each shard.  If your Redis cluster setup involves replication, the 'masterauth' parameter will be added to each replica's config file."
+              data-tooltip-content= {`The password used for authenticating the Redis replica (slave) with the master instance in each shard.
+If your Redis cluster setup involves replication, the 'masterauth' parameter will be added to each replica's config file.`}
               className="text-xl"
             >
               Requirepass password (REQUIRED)
@@ -111,7 +108,8 @@ const RedisForm: FC = (): ReactElement => {
           <div className="redis-form-input">
             <a
               data-tooltip-id="masteruser"
-              data-tooltip-content="The username that will be used for authenticating with the master Redis instance in each shard.  This is an advanced security configuration to provide fine grain access/control."
+              data-tooltip-content= {`The username that will be used for authenticating with the master Redis instance in each shard. 
+This is an advanced security configuration to provide fine grain access/control.`}
               className="text-xl"
             >
               Masteruser credentials (optional)
@@ -134,7 +132,9 @@ const RedisForm: FC = (): ReactElement => {
         <div className="redis-form-input">
           <a
             data-tooltip-id="daemonize"
-            data-tooltip-content="Controls whether Redis runs as a daemon (i.e., in the background) or in the foreground.  Redis typically only runs in the foreground (i.e., attached to the terminal or session that started it) when in development.  Daemons are recommended for production environments."
+            data-tooltip-content= {`Controls whether Redis runs as a daemon (i.e., in the background) or in the foreground. 
+Redis typically only runs in the foreground (i.e., attached to the terminal or session that started it) when in development. 
+Daemons are recommended for production environments.`}
             className="text-xl "
           >
             Daemonize
@@ -188,7 +188,9 @@ const RedisForm: FC = (): ReactElement => {
         <div className="redis-form-input">
           <a
             data-tooltip-id="cluster-node-timeout"
-            data-tooltip-content="Defines how long the node will wait for responses from other nodes before marking them as unreachable.  Once a node is marked as unreachable, within a Redis cluster, the failover process is initiated.  If no value is specified in the redis.conf file, then the default value is 15,000 (15 seconds)."
+            data-tooltip-content= {`Defines how long the node will wait for responses from other nodes before marking them as unreachable. 
+Once a node is marked as unreachable, within a Redis cluster, the failover process is initiated. 
+If no value is specified in the redis.conf file, then the default value is 15,000 (15 seconds).`}
             className="text-xl"
           >
             Node timeout (milliseconds)
@@ -212,7 +214,9 @@ const RedisForm: FC = (): ReactElement => {
           <div className="redis-form-input">
             <a
               data-tooltip-id="saveSeconds"
-              data-tooltip-content="Add a user-defined time period you want the Redis DB contents to be backed up to a file.  By default, Redis snapshotting is enabled and occurs at the following frequencies: Every 900 seconds (15 minutes) there is at least one change, every 5 minutes there is at least 10 changes, and every minute there are at least 10,000 changes."
+              data-tooltip-content={`Add a user-defined time period you want the Redis DB contents to be backed up to a file.
+By default, Redis snapshotting is enabled and occurs at the following frequencies: 
+Every 900 seconds (15 minutes) there is at least one change, every 5 minutes there is at least 10 changes, and every minute there are at least 10,000 changes.`}
               className="text-xl"
             >
               Minimum time between RDB snapshots (seconds)
@@ -235,7 +239,10 @@ const RedisForm: FC = (): ReactElement => {
           <div className="redis-form-input">
             <a
               data-tooltip-id="saveChanges"
-              data-tooltip-content="Add a user-defined number of changes that you want the Redis DB contents to be backed up to a file.  This value will be paired with the 'Minimum time between RDB snapshots'.  By default, Redis snapshotting is enabled and occurs at the following frequencies: Every 900 seconds (15 minutes) there is at least one change, every 5 minutes there is at least 10 changes, and every minute there are at least 10,000 changes."
+              data-tooltip-content= {`Add a user-defined number of changes that you want the Redis DB contents to be backed up to a file. 
+This value will be paired with the 'Minimum time between RDB snapshots'. 
+By default, Redis snapshotting is enabled and occurs at the following frequencies: 
+Every 900 seconds (15 minutes) there is at least one change, every 5 minutes there is at least 10 changes, and every minute there are at least 10,000 changes.`}
               className="text-xl"
             >
               Minimum number of changes to trigger an RDB snapshot
@@ -258,7 +265,10 @@ const RedisForm: FC = (): ReactElement => {
           <div className="redis-form-input">
             <a
               data-tooltip-id="appendonly"
-              data-tooltip-content="As an additional optional method of data backup and persistence, AOF can be enabled which logs every write operation to a log file.  The entire DB can be restored using an AOF file; however, it is more common to use AOF with RDB snapshoting.  When Redis loads, it will load the data from the latest RDB snapshot (which is faster than recreating everything from an AOF file) and then the write operations are replayed from the .aof file syncing the DB with the latest writes that were not captured by the RDB snapshot."
+              data-tooltip-content={`As an additional optional method of data backup and persistence, AOF can be enabled which logs every write operation to a log file. 
+The entire DB can be restored using an AOF file; however, it is more common to use AOF with RDB snapshoting.  
+When Redis loads, it will load the data from the latest RDB snapshot (which is faster than recreating everything from an AOF file). 
+Then the write operations are replayed from the .aof file syncing the DB with the latest writes that were not captured by the RDB snapshot.`}
               className="text-xl"
             >
               Enable append only file (AOF)
@@ -284,7 +294,11 @@ const RedisForm: FC = (): ReactElement => {
           <div className="redis-form-input">
             <a
               data-tooltip-id="appendfsync"
-              data-tooltip-content="When using AOF, you can further specify how often the write operations are appended and saved to the .aof file.  A description of the options are as follows:  ALWAYS: Redis waits for every write operation to be written to disk.  Provides the highest durability, but can impact peformance due to frequent disk I/O operations, EVERYSEC: Redis writes to disk every second.  This is considered a balanced approach between durability and performance, and NO: Redis doesn't perform syncing operations and relies on the operating system's default behavior for file writes.  This is the least durable of the three options, but the most performant."
+              data-tooltip-content= {`When using AOF, you can further specify how often the write operations are appended and saved to the .aof file. 
+A description of the options are as follows:  ALWAYS: Redis waits for every write operation to be written to disk.  
+Provides the highest durability, but can impact peformance due to frequent disk I/O operations, EVERYSEC: Redis writes to disk every second.  
+This is considered a balanced approach between durability and performance, and NO: Redis doesn't perform syncing operations and relies on the operating system's default behavior for file writes.  
+This is the least durable of the three options, but the most performant.`}
               className="text-xl"
             >
               AOF Sync Behavior

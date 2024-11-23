@@ -12,48 +12,6 @@ interface RedisRequestBody {
 }
 
 const performanceController: { [key: string]: any } = {};
-//connect to AWS cluster
-
-// const cluster = new Redis.Cluster(
-//   [
-//     { host: '52.38.48.179', port: 6379 },
-//     { host: '52.25.17.33', port: 6379 },
-//     { host: '34.214.39.67', port: 6379 },
-//     { host: '44.242.222.211', port: 6379 },
-//     { host: '35.93.23.179', port: 6379 },
-//     { host: '35.95.31.110', port: 6379 },
-//   ],
-//   { redisOptions: { password: 12345 } }
-// );
-
-// cluster.on('connect', () => {
-//   console.log('AWS cluster connected');
-//   console.log('cluster isn not down')
-// });
-
-// cluster.on('error', (err: Error) => {
-//   console.error('AWS cluster connection error', err);
-// });
-
-// performanceController.connectAWSCluster = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const result = await cluster.set('key', 'value');
-//     console.log('set result from AWS connection', result);
-//     return next();
-//   } catch (err) {
-//     return next({
-//       log: `redisController.connectUserRedis error ${err}`,
-//       message: `could not connect to Redis instance`,
-//       status: 500,
-//     });
-//   }
-// };
-
-// connect to Redis cloud
 
 performanceController.connectUserRedis = async (
   req: Request,
@@ -61,30 +19,6 @@ performanceController.connectUserRedis = async (
   next: NextFunction
 ) => {
   console.log('in the connectUserRedis function');
-
-  // try {
-  //   console.log(res.locals.user);
-  //   const ips = res.locals.user.clusterIPs;
-  //   console.log('ips', ips);
-  //   // console.log('res.locals.user ', res.locals.user);
-  //   // const clusterNodes: {host: string, port: number}[] = [];
-  //   // ips.forEach((ip: string) => {
-  //   //   clusterNodes.push({
-  //   //     host: ip,
-  //   //     port: 6379,
-  //   //   });
-  //   // });
-  //   next();
-  // }
-  // catch(err){
-  //   return next({
-  //     log: `redisController.connectUserRedis error ${err}`,
-  //     message: `could not connect to Redis instance`,
-  //     status: 500,
-  //   });
-  // }
-
-  // ----------------------------------------------
 
   try {
     const ips = res.locals.user.clusterIPs;
@@ -98,9 +32,10 @@ performanceController.connectUserRedis = async (
     });
 
     console.log('clusterNodes', clusterNodes);
+
     const redisClient = new Redis.Cluster(clusterNodes, {
       redisOptions: {
-        password: req.body.redisPassword || 12345,
+        password: res.locals.user.clusterPassword || 12345,
       },
     });
 
@@ -112,14 +47,14 @@ performanceController.connectUserRedis = async (
       next();
     });
 
-    // redisClient.on('error', (err: Error) => {
-    //   console.error('Redis client connection error:', err);
-    //   return next({
-    //     log: `redisController.connectUserRedis error ${err}`,
-    //     message: `could not connect to Redis instance`,
-    //     status: 500,
-    //   });
-    // });
+    redisClient.on('error', (err: Error) => {
+      console.error('Redis client connection error:', err);
+      return next({
+        log: `redisController.connectUserRedis error ${err}`,
+        message: `could not connect to Redis instance`,
+        status: 500,
+      });
+    });
 
     // res.locals.redisClient = redisClient;
     // next();
@@ -210,10 +145,14 @@ performanceController.getUsedCPU = async (
   try {
     //const redisClient = res.locals.redisClient;
     const redisClient = res.locals.redisClient;
+    // console.log('redisClient', redisClient);
     if (!redisClient) {
+      console.log('noClient');
       throw new Error('Redis client is not available');
     }
+    console.log('getting stats')
     const stats = await redisClient.info('CPU');
+    console.log('stats', stats)
     const metrics: string[] = stats.split('\r\n');
     let usedCPU = metrics.find(str => str.startsWith('used_cpu_user'));
     if (usedCPU) usedCPU = usedCPU.slice(usedCPU.indexOf(':') + 1).trim();
@@ -253,7 +192,7 @@ performanceController.runBenchmark = async (
     nodes += `-h ${ip} `;
   });
 
-  const command = `redis-benchmark ${nodes} -p ${port} -a ${password} -c ${num_clients} -n ${num_requests} -t ${tests} --cluster`;
+  const command = `redis-benchmark ${nodes}-p ${port} -a ${password} -c ${num_clients} -n ${num_requests} -t ${tests} --cluster`;
   console.log('command', command);
 
   exec(command, (error, stdout, stderr) => {
@@ -262,7 +201,7 @@ performanceController.runBenchmark = async (
       console.error('Error running redis-benchmark:', stderr);
       return res.status(500).json({ success: false, error: stderr });
     }
-    console.log('Benchmark result:', stdout);
+    // console.log('Benchmark result:', stdout);
     // return res.status(200).json({ success: true, output: stdout });
     res.locals.benchmark = { success: true, output: stdout.toString() };
     next();
