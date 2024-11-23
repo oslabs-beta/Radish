@@ -75,7 +75,7 @@ const Performance: FC = (): ReactElement => {
         console.error(`Error fetching cpu data`, err);
       }
     };
-    fetchMemoryData();
+    // fetchMemoryData();
     fetchCPUData();
   }, []);
 
