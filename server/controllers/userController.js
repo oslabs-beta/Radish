@@ -52,7 +52,7 @@ const loginUser = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ email });
-    console.log("attempting to find user:", user);
+    // console.log("attempting to find user:", user);
     if (!user) {
       return res.status(401).json({ error: "User not found" });
     }

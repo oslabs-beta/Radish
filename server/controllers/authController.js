@@ -37,7 +37,7 @@ const verifyCookie = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id).select("-password");
-    console.log("user data", user);
+    // console.log("user data", user);
     console.log("exiting verifyCookie");
 
     if (!user) {
@@ -61,11 +61,15 @@ const checkUser = async (req, res, next) => {
   const token = req.cookies.authToken;
   console.log("token", token);
   try {
+    if (!token) {
+      console.log("no token error");
+      next({ message: "Not Authorized", status: 401 });
+    }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id).select("-password");
-    // console.log('user', user);
+    console.log("user", user);
     if (!user) {
-      next();
+      next({ message: "No User found", status: 401 });
     }
     res.locals.user = user;
     // console.log('res.locals.user', res.locals.user);

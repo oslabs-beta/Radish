@@ -26,7 +26,6 @@ awsSDKController.createSecurityGroup = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("");
   const { vpcID, region, amiPublicKey, amiSecretKey } = req.body;
 
   const regionObject: Record<string, string> = {

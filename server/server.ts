@@ -103,7 +103,7 @@ app.post(
 );
 
 app.post(
-  "/api/testSecurityGroupAndEC2Launch",
+  "/api/launchEC2",
   checkUser,
   createSecurityGroup,
   launchEC2s,
@@ -140,23 +140,4 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-// Handle termination signals (i.e,. crtl+c ) when using Docker-Compose
-// Without these methods, the termination signal hangs and the container for this app does not gracefully stop.
-
-// process.on('SIGTERM', () => {
-//   console.log('SIGTERM signal received: closing HTTP server');
-//   redisClient.quit();
-//   server.close(() => {
-//       console.log('HTTP server closed');
-//   });
-// });
-
-// process.on('SIGINT', () => {
-//   console.log('SIGINT signal received: closing HTTP server');
-//   redisClient.quit();
-//   server.close(() => {
-//       console.log('HTTP server closed');
-//   });
-// });
-
-//connect to redis cluster
+module.exports = app;
