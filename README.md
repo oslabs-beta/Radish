@@ -69,6 +69,6 @@ JWT_SECRET=
 |------------------|-------------------|---------------------|
 | Tom Djergian  | [LinkedIn](www.linkedin.com/in/thomas-djergian) | [GitHub](https://github.com/Tdjergian) |
 | Jay Hoogheem   | [LinkedIn](https://www.linkedin.com/in/jay-hoogheem-26a468a/) | [GitHub](https://github.com/Jaysus119) |
-| Charlize Zhou   | [LinkedIn](https://www.linkedin.com/in/charliezdev/) | [GitHub](https://github.com/charliezhou1) |
+| Charlize Zhou   | [LinkedIn](https://www.linkedin.com/in/shunlizhou/) | [GitHub](https://github.com/charliezhou1) |
 | Ksenia Vasileva  | [LinkedIn](https://www.linkedin.com/in/ksenia-vasileva/) | [GitHub](https://github.com/basswoman) |
 | Sameer Syed  | [LinkedIn](https://www.linkedin.com/in/sameer-syed-44370624a/) | [GitHub](https://github.com/SameerSyed99) |
